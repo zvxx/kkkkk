@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقع العلاجات</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('file:///C:/Users/Tikrit%20Center/OneDrive/Desktop/DALL%C2%B7E%202024-10-16%2022.22.41%20-%20A%20professional,%20clean,%20and%20modern%20website%20background%20for%20a%20pharmaceutical%20treatments%20page.%20The%20background%20features%20soft,%20soothing%20blue%20and%20white%20hues,.webp'); /* رابط لخلفية عامة */
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+            color: #fff;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 30px;
+        }
+        .search-container {
+            margin-top: 50px;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: black;
+            border-radius: 10px;
+            display: none;
+        }
+        .section {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border-radius: 10px;
+        }
+        .collapsible {
+            background-color: #444;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            text-align: left;
+            border: none;
+            outline: none;
+            font-size: 18px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .collapsible:hover {
+            background-color: #555;
+        }
+        .collapsible::after {
+            content: '\25BC'; /* سهم لأسفل */
+            font-size: 16px;
+        }
+        .collapsible.active::after {
+            content: '\25B2'; /* سهم لأعلى */
+        }
+        .content {
+            padding: 0 20px;
+            display: none;
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+        }
+        .content img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>موقع البحث عن العلاجات</h1>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="ابحث عن علاج...">
+        <button onclick="searchMedicine()">بحث</button>
+    </div>
+
+    <div id="result" class="result">
+        <h2 id="medicineName"></h2>
+        <div id="medicineSections"></div>
+    </div>
+
+    <script>
+        function searchMedicine() {
+            var query = document.getElementById('searchInput').value.toLowerCase();
+            var resultDiv = document.getElementById('result');
+            var medicineName = document.getElementById('medicineName');
+            var medicineSections = document.getElementById('medicineSections');
+
+            medicineSections.innerHTML = ''; // تنظيف الأقسام القديمة
+
+            // بحث عن كلمة "براسيتامول"
+            if (query === 'براسيتامول') {
+                medicineName.innerText = 'براسيتامول';
+                resultDiv.style.display = 'block';
+
+                // قسم: استفادة من العلاج
+                medicineSections.appendChild(createSection(
+                    'استفادة من العلاج',
+                    'البراسيتامول مفيد في تخفيف الألم وخفض الحرارة. يمكن استخدامه للصداع، آلام العضلات، التهاب المفاصل، وآلام الأسنان.',
+                    'https://example.com/benefit.jpg' // رابط خلفية مخصصة لهذا القسم
+                ));
+
+                // قسم: الأعراض الجانبية
+                medicineSections.appendChild(createSection(
+                    'الأعراض الجانبية',
+                    'يمكن أن يسبب البراسيتامول بعض الآثار الجانبية مثل الطفح الجلدي، الحكة، والغثيان في بعض الحالات النادرة.',
+                    'https://example.com/side-effects.jpg' // رابط خلفية مخصصة لهذا القسم
+                ));
+
+                // قسم: الجرعة والاستخدام
+                medicineSections.appendChild(createSection(
+                    'الجرعة والاستخدام',
+                    'يُنصح عادةً بأخذ البراسيتامول بجرعات تتراوح من 500 إلى 1000 مجم كل 4 إلى 6 ساعات، حسب الحاجة.',
+                    'https://example.com/dosage.jpg' // رابط خلفية مخصصة لهذا القسم
+                ));
+
+                // إضافة أحداث النقر على الأقسام
+                addCollapsibleListeners();
+            } else {
+                medicineName.innerText = 'لم يتم العثور على نتائج لبحثك.';
+                resultDiv.style.display = 'block';
+            }
+        }
+
+        function createSection(title, content, imageUrl) {
+            var section = document.createElement('div');
+            section.className = 'section';
+
+            // العنصر القابل للطي (collapsible)
+            var collapsible = document.createElement('button');
+            collapsible.className = 'collapsible';
+            collapsible.innerText = title;
+
+            // محتوى القسم
+            var contentDiv = document.createElement('div');
+            contentDiv.className = 'content';
+
+            var image = document.createElement('img');
+            image.src = imageUrl;
+
+            var paragraph = document.createElement('p');
+            paragraph.innerText = content;
+
+            contentDiv.appendChild(image);
+            contentDiv.appendChild(paragraph);
+
+            section.appendChild(collapsible);
+            section.appendChild(contentDiv);
+
+            return section;
+        }
+
+        function addCollapsibleListeners() {
+            var coll = document.getElementsByClassName('collapsible');
+            for (var i = 0; i < coll.length; i++) {
+                coll[i].addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    var content = this.nextElementSibling;
+                    if (content.style.display === 'block') {
+                        content.style.display = 'none';
+                    } else {
+                        content.style.display = 'block';
+                    }
+                });
+            }
+        }
+    </script>
+
+</body>
+</html>
